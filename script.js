@@ -1078,7 +1078,7 @@ app.controller('userControl',function($scope,$window,$location,user,$http,$inter
     {
         $scope.getCar;
         $scope.sendname=$scope.getCar.toString();
-        $scope.nwindowUrl='/test.html?cname='+$scope.sendname+'&amount='+$scope.toll+'&name='+$scope.loggedinas;
+        $scope.nwindowUrl='AnprSystemUI/test.html?cname='+$scope.sendname+'&amount='+$scope.toll+'&name='+$scope.loggedinas;
         $window.location.href =  $scope.nwindowUrl;
 
         // $window.open( $scope.nwindowUrl,'_blank');
