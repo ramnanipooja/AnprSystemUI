@@ -1,0 +1,119 @@
+<html>
+    <body>
+        
+
+
+<script>
+  let params = new URLSearchParams(location.search);
+  var amt=params.get('amount');
+  var na=params.get('name');
+  var cna=params.get('cname');
+ console.log(amt);
+  // function abc()
+  // {
+  //   var xmlHttp = new XMLHttpRequest();
+  //       var url="https://anpr-system.herokuapp.com/anpr/removetoll/"+cna+"/"+amt+"/"+na;
+  //       xmlHttp.open( "GET",url, true );
+  //       xmlHttp.send(null)
+  // }
+  
+  </script>
+
+
+<style>
+  #paypal-button-container
+  {
+    margin-top: 15%;
+    margin-left: 20%;
+  }
+  
+.heading{
+        background-color: #0073b1;
+        color: azure;
+        margin-bottom: 0px !important;
+    }
+
+    
+.heading h1,h5
+{
+  display: inline;
+}
+</style>
+
+
+<script
+src="https://www.paypal.com/sdk/js?currency=INR&client-id=AUhUBquQFBa0gnXMBgrpFGz9p4aXIezlHHl1m8bdPO8l4Iurfvd7_qJXXeEZ6fQOyR0FkDWFfKVYUxEt">
+</script>
+<!-- <script
+src="https://www.paypal.com/sdk/js?currency=INR&client-id=AYkQj8Gyoc4iNnZ84mkWnHhDWse7cTJ_qTo10k4NV5WqGWWa-8zISvBciTvE724rwnwnTTOn_tQPH5fQ">
+</script> -->
+
+<div class="heading"><center><h1><strong >ANPR System Payment Gateway<h5></h5></strong></h1></center></div>
+ 
+
+<div id="paypal-button-container"></div>
+
+
+
+<script>
+
+        paypal.Buttons({
+
+          style: {
+          shape: 'rect',
+          color: 'blue',
+          layout: 'vertical',
+          label: 'paypal',
+          
+      },
+      
+
+    createOrder: function(data, actions) {
+      // This function sets up the details of the transaction, including the amount and line item details.
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+           
+            value:amt
+          }
+        }]
+      });
+    },
+    onApprove: function(data, actions) {
+      // This function captures the funds from the transaction.
+      return actions.order.capture().then(function(details) {
+        // This function shows a transaction success message to your buyer.
+        var xmlHttp = new XMLHttpRequest();
+        var url="https://anpr-system.herokuapp.com/anpr/removetoll/"+cna+"/"+amt+"/"+na;
+        xmlHttp.open( "GET",url, true );
+        xmlHttp.send(null)
+        alert('Thank You for making payment of Rs.'+amt);
+        window.location = "https://ramnanipooja.github.io/AnprSystemUI/";
+      });
+    },
+    onFailure: function (data) {
+    
+    alert("Payment Failed");
+      window.location = "https://ramnanipooja.github.io/AnprSystemUI/";
+},
+    onCancel: function (data) {
+    
+      alert("Payment cancelled");
+        window.location = "https://ramnanipooja.github.io/AnprSystemUI/";
+  },
+    onError: function (data) {
+    
+      alert("Some error occured");
+        window.location = "https://ramnanipooja.github.io/AnprSystemUI/";
+  }
+
+  }).render('#paypal-button-container');
+    
+  </script>
+<!-- 
+<input type="submit" onclick="abc()"> -->
+
+
+
+    </body>
+</html>
